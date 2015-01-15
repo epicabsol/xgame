@@ -1,27 +1,33 @@
 package us.tahomasd.xgame;
 
+/* XGameMain
+ *    The entry point for XGame
+ *    
+ *    Ben Garcia
+ *    2015
+ */
 import org.lwjgl.Sys;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
- 
+
 import java.nio.ByteBuffer;
- 
+
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import us.tahomasd.xgame.XGameCore;
 
+@SuppressWarnings("unused")
 public class XGameMain {
 	// We need to strongly reference callback instances.
     private GLFWErrorCallback errorCallback;
     private GLFWKeyCallback   keyCallback;
  
     // The window handle
-    private long window;
+    public long window;
  
-    public void run() {
-        System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
- 
+    public void run() { 
         try {
             init();
             loop();
@@ -30,7 +36,7 @@ public class XGameMain {
             glfwDestroyWindow(window);
             keyCallback.release();
         } finally {
-            // Terminate GLFW and release the GLFWerrorfun
+            // Terminate GLFW and release the GLFW error callback
             glfwTerminate();
             errorCallback.release();
         }
@@ -50,12 +56,12 @@ public class XGameMain {
         glfwWindowHint(GLFW_VISIBLE, GL_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // the window will be resizable
  
-        int WIDTH = 300;
-        int HEIGHT = 300;
+        int WIDTH = 25 * XGameCore.TileSize;
+        int HEIGHT = 15 * XGameCore.TileSize;
  
         // Create the window
-        window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
-        if ( window == NULL )
+        window = glfwCreateWindow(WIDTH, HEIGHT, "XGame", NULL, NULL);
+        if ( window == NULL ) 
             throw new RuntimeException("Failed to create the GLFW window");
  
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
@@ -80,6 +86,9 @@ public class XGameMain {
         glfwMakeContextCurrent(window);
         // Enable v-sync
         glfwSwapInterval(1);
+        
+        // Load the game
+        XGameCore.Load();
  
         // Make the window visible
         glfwShowWindow(window);
@@ -99,13 +108,13 @@ public class XGameMain {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while ( glfwWindowShouldClose(window) == GL_FALSE ) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            XGameCore.Render();
  
             glfwSwapBuffers(window); // swap the color buffers
  
             // Poll for window events. The key callback above will only be
             // invoked during this call.
-            glfwPollEvents();
+            glfwPollEvents(); // NOTE: Keyboard polling doens't seem to be working yet - Ignore next note. -> NOTE: Let's try to implement input by polling the keyboard per frame, not by calbacks. This has always worked better for me.
         }
     }
  
