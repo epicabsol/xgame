@@ -24,16 +24,13 @@ public class XGameMain {
     private GLFWErrorCallback errorCallback;
     private GLFWKeyCallback   keyCallback;
  
-    // The window handle
-    public long window;
- 
     public void run() { 
         try {
             init();
             loop();
  
             // Release window and window callbacks
-            glfwDestroyWindow(window);
+            glfwDestroyWindow(XGameCore.window);
             keyCallback.release();
         } finally {
             // Terminate GLFW and release the GLFW error callback
@@ -60,12 +57,12 @@ public class XGameMain {
         int HEIGHT = 15 * XGameCore.TileSize;
  
         // Create the window
-        window = glfwCreateWindow(WIDTH, HEIGHT, "XGame", NULL, NULL);
-        if ( window == NULL ) 
+        XGameCore.window = glfwCreateWindow(WIDTH, HEIGHT, "XGame", NULL, NULL);
+        if ( XGameCore.window == NULL ) 
             throw new RuntimeException("Failed to create the GLFW window");
  
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
+        glfwSetKeyCallback(XGameCore.window, keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
                 if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
@@ -77,13 +74,13 @@ public class XGameMain {
         ByteBuffer vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         // Center our window
         glfwSetWindowPos(
-            window,
+            XGameCore.window,
             (GLFWvidmode.width(vidmode) - WIDTH) / 2,
             (GLFWvidmode.height(vidmode) - HEIGHT) / 2
         );
  
         // Make the OpenGL context current
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(XGameCore.window);
         // Enable v-sync
         glfwSwapInterval(1);
         
@@ -91,7 +88,7 @@ public class XGameMain {
         XGameCore.Load();
  
         // Make the window visible
-        glfwShowWindow(window);
+        glfwShowWindow(XGameCore.window);
     }
  
     private void loop() {
@@ -107,10 +104,12 @@ public class XGameMain {
  
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        while ( glfwWindowShouldClose(window) == GL_FALSE ) {
+        while ( glfwWindowShouldClose(XGameCore.window) == GL_FALSE ) {
+        	XGameCore.Update();
+        	
             XGameCore.Render();
  
-            glfwSwapBuffers(window); // swap the color buffers
+            glfwSwapBuffers(XGameCore.window); // swap the color buffers
  
             // Poll for window events. The key callback above will only be
             // invoked during this call.
