@@ -6,11 +6,14 @@ package us.tahomasd.xgame;
  *    Ben Garcia
  *    2015
  */
+import org.lwjgl.LWJGLUtil;
 import org.lwjgl.Sys;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
+import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.Properties;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -116,8 +119,31 @@ public class XGameMain {
             glfwPollEvents(); // NOTE: Keyboard polling doens't seem to be working yet - Ignore next note. -> NOTE: Let's try to implement input by polling the keyboard per frame, not by calbacks. This has always worked better for me.
         }
     }
- 
+    
     public static void main(String[] args) {
+    	boolean is64 = false;
+    	if (System.getProperty("os.name").contains("Windows"))
+		{
+    		is64 = (System.getenv("ProgramFiles(x86)") != null);
+		}
+    	else
+    	{
+    		is64 = (System.getProperty("os.arch").indexOf("64") != -1);
+    	}
+    	switch (LWJGLUtil.getPlatform())
+    	{
+		case LINUX:
+			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/linux/" + (is64 ? "x64" : "x86")).getAbsolutePath());
+			break;
+		case MACOSX:
+			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/macosx/x64").getAbsolutePath());
+			break;
+		case WINDOWS:
+			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/macosx/" + (is64 ? "x64": "x86")).getAbsolutePath());
+			break;
+    	}
+    	
+    	//System.setProperty("org.lwjgl.librarypath","xgame/lib/lwjgl/native/macosx/x64");
         new XGameMain().run();
     }
 }
