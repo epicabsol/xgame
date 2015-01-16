@@ -77,7 +77,7 @@ public class Texture {
 	
 	public void render(Vector2d pos, double Z)
 	{
-		render(pos, Z, new Vector2d(this.width(), this.height()), null, 0, new Vector2d(0, 0));
+		render(pos, Z, new Vector2d(this.width(), this.height()), new Color(255, 55, 255), 0, new Vector2d(0, 0));
 	}
 	
 	public void render(Vector2d pos, double Z, Vector2d size, Color color, double rotation, Vector2d rp)
