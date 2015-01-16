@@ -65,6 +65,7 @@ public class Texture {
 		} catch (IOException e) {
 			System.out.println("ERROR: Could not load file \"" + path + "\"");
 		    e.printStackTrace();
+		    XGameCore.msgBox("Could not load texture from \"" + path + "\"", "Texture.new(String)");
 		    System.exit(-1);
 		}
 	}

@@ -1,6 +1,9 @@
 package us.tahomasd.xgame;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import javax.swing.JOptionPane;
+
 import org.lwjgl.opengl.GL11;
 //import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.*;
@@ -11,6 +14,10 @@ import us.tahomasd.xgame.screens.*;
 
 public class XGameCore {
 	public static int TileSize = 32;
+	public static int Scale()
+	{
+		return TileSize / 16;
+	}
 	public static boolean EscapePressed = false;
 	public static boolean SpacePressed = false;
 	public static boolean ZPressed = false;
@@ -127,4 +134,9 @@ public class XGameCore {
 		SetupViewport();
 		CurrentScreen.Render();
 	}
+	
+	public static void msgBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
 }
