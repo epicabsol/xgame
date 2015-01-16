@@ -106,7 +106,7 @@ public class XGameMain {
     private void loop() {
  
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
  
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.

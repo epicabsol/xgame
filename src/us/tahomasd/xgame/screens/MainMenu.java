@@ -15,7 +15,7 @@ public class MainMenu extends XGameScreen {
 
 	@Override
 	public void Render() {
-		title.render(new Vector2d(0, 0), 0, new Vector2d(426 / 2 * XGameCore.Scale(), 144 / 2 * XGameCore.Scale()), new Color(255, 255, 255, 255), 0.0, new Vector2d(0,0));
+		title.render(new Vector2d((XGameMain.WIDTH / 2) - (426 / 4 * XGameCore.Scale()), 150 * XGameCore.Scale()), 0, new Vector2d(426 / 2 * XGameCore.Scale(), 144 / 2 * XGameCore.Scale()), new Color(255, 255, 255, 255), 0.0, new Vector2d(0,0));
 	}
 
 	@Override
