@@ -1,16 +1,16 @@
 package us.tahomasd.xgame;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import org.lwjgl.glfw.GLFW;
+import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL11;
+//import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.glfw.*;
 
 //import us.tahomasd.xgame.XGameMain;
 //import us.tahomasd.xgame.*;   // Do we not need to import classes in the same package? Sweet!
 import us.tahomasd.xgame.screens.*;
 
 public class XGameCore {
-	public static int TileSize = 16;
+	public static int TileSize = 32;
 	public static boolean EscapePressed = false;
 	public static boolean SpacePressed = false;
 	public static boolean ZPressed = false;
@@ -30,7 +30,37 @@ public class XGameCore {
 	
 	public static void Load()
 	{
+		GL11.glEnable(GL_TEXTURE_2D);
+		GL11.glEnable(GL_DEPTH_TEST);
+		GL11.glEnable(GL_BLEND);
+		GL11.glEnable(GL_ALPHA_TEST);
+		GL11.glAlphaFunc(GL_GREATER, 0);
+		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		SetupViewport();
+		
 		MainMenuScreen = new MainMenu();
+		MainMenuScreen.Load();
+		
+		//GameScreen.Load();
+		
+		//ResultsScreen.Load(); These are not initialized yet!
+		CurrentScreen = MainMenuScreen;
+	}
+	
+	public static void SetupViewport()
+	{
+		GL11.glViewport(0, 0, XGameMain.WIDTH , XGameMain.HEIGHT);
+		GL11.glMatrixMode(GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, XGameMain.WIDTH, 0, XGameMain.HEIGHT, -400, 400); 
+	}
+	
+	public static void Dispose()
+	{
+		MainMenuScreen.Dispose();
+		//GameScreen.Dispose();
+		//ResultsScreen.Dispose(); // These are not initialized yet!
 	}
 	
 	public static void Update()
@@ -94,5 +124,7 @@ public class XGameCore {
 	public static void Render()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+		SetupViewport();
+		CurrentScreen.Render();
 	}
 }

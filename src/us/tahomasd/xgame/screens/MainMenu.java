@@ -1,31 +1,42 @@
 package us.tahomasd.xgame.screens;
 
-import us.tahomasd.xgame.XGameScreen;
+import java.io.File;
+
+import us.tahomasd.xgame.*;
+
 import org.lwjgl.glfw.GLFW;
 
 public class MainMenu extends XGameScreen {
-
+	public static Texture title = null;
 	@Override
 	public void Update() {
-		// TODO: Auto-generated method stub
 
 	}
 
 	@Override
 	public void Render() {
-		// TODO: Auto-generated method stub
-
+		title.render(new Vector2d(0, 0), 0, new Vector2d(426, 144), new Color(255, 255, 255, 255), 0.0, new Vector2d(0,0));
 	}
 
 	@Override
 	public void OnKeyDown(int KeyCode) {
-		// TODO Auto-generated method stub
 		switch (KeyCode)
 		{
 			case GLFW.GLFW_KEY_SPACE:
 				System.out.println("Space key pressed!");
 				break;
 		}
+	}
+
+	@Override
+	public void Load() {
+		title = new Texture(new File("res/img/title.png").getAbsolutePath());
+	}
+
+	@Override
+	public void Dispose() {
+		title.Dispose();
+		title = null;
 	}
 
 }

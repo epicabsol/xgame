@@ -26,12 +26,15 @@ public class XGameMain {
 	// We need to strongly reference callback instances.
     private GLFWErrorCallback errorCallback;
     private GLFWKeyCallback   keyCallback;
+    
+    public static int WIDTH = 25 * XGameCore.TileSize;
+    public static int HEIGHT = 15 * XGameCore.TileSize;
  
     public void run() { 
         try {
             init();
             loop();
- 
+            XGameCore.Dispose();
             // Release window and window callbacks
             glfwDestroyWindow(XGameCore.window);
             keyCallback.release();
@@ -53,11 +56,8 @@ public class XGameMain {
  
         // Configure our window
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
-        glfwWindowHint(GLFW_VISIBLE, GL_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // the window will be resizable
- 
-        int WIDTH = 25 * XGameCore.TileSize;
-        int HEIGHT = 15 * XGameCore.TileSize;
+        glfwWindowHint(GLFW_VISIBLE, GL_TRUE); // the window will not stay hidden after creation
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // the window will not be resizable
  
         // Create the window
         XGameCore.window = glfwCreateWindow(WIDTH, HEIGHT, "XGame", NULL, NULL);
@@ -87,6 +87,15 @@ public class XGameMain {
         // Enable v-sync
         glfwSwapInterval(1);
         
+        // This line is critical for LWJGL's interoperation with GLFW's
+        // OpenGL context, or any context that is managed externally.
+        // LWJGL detects the context that is current in the current thread,
+        // creates the ContextCapabilities instance and makes the OpenGL
+        // bindings available for use.
+        //
+        // NOTE: We need to have this here before XGameCore.Load() so we have an OpenGL Context to create textures with (and stuff)
+        GLContext.createFromCurrent();
+        
         // Load the game
         XGameCore.Load();
  
@@ -95,12 +104,6 @@ public class XGameMain {
     }
  
     private void loop() {
-        // This line is critical for LWJGL's interoperation with GLFW's
-        // OpenGL context, or any context that is managed externally.
-        // LWJGL detects the context that is current in the current thread,
-        // creates the ContextCapabilities instance and makes the OpenGL
-        // bindings available for use.
-        GLContext.createFromCurrent();
  
         // Set the clear color
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);

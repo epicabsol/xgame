@@ -1,20 +1,20 @@
 package us.tahomasd.xgame;
 
 public class Color {
-	public byte A = 0;
-	public byte R = 0;
-	public byte G = 0;
-	public byte B = 0;
+	public int A = 0;
+	public int R = 0;
+	public int G = 0;
+	public int B = 0;
 	
-	public Color(byte R, byte G, byte B)
+	public Color(int R, int G, int B)
 	{
-		this.A = 0;
+		this.A = 255;
 		this.R = R;
 		this.G = G;
 		this.B = B;
 	}
 	
-	public Color(byte R, byte G, byte B, byte A)
+	public Color(int R, int G, int B, int A)
 	{
 		this.A = A;
 		this.R = R;
