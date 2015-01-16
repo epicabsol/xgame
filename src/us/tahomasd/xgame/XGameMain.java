@@ -139,7 +139,7 @@ public class XGameMain {
 			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/macosx/x64").getAbsolutePath());
 			break;
 		case WINDOWS:
-			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/macosx/" + (is64 ? "x64": "x86")).getAbsolutePath());
+			System.setProperty("org.lwjgl.librarypath", new File("lib/lwjgl/native/windows/" + (is64 ? "x64": "x86")).getAbsolutePath());
 			break;
     	}
     	
