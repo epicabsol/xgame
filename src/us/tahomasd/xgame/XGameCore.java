@@ -13,7 +13,7 @@ import org.lwjgl.glfw.*;
 import us.tahomasd.xgame.screens.*;
 
 public class XGameCore {
-	public static int TileSize = 32;
+	public static int TileSize = 16;
 	public static int Scale()
 	{
 		return TileSize / 16;
