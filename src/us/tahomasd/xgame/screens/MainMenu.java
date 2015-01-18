@@ -1,5 +1,8 @@
 package us.tahomasd.xgame.screens;
 
+import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
+import static org.lwjgl.opengl.GL11.GL_TRUE;
+
 import java.io.File;
 
 import us.tahomasd.xgame.*;
@@ -64,5 +67,25 @@ public class MainMenu extends XGameScreen {
 		titleTexture.Dispose();
 		titleTexture = null;
 	}
-
+	
+	@Override
+	public void OnButtonPressed(UIButton b)
+	{
+		if (b.equals(startbutton))
+		{
+			
+		}
+		else if (b.equals(levelsbutton))
+		{
+			
+		}
+		else if (b.equals(levelsbutton))
+		{
+			
+		}
+		else if (b.equals(closebutton))
+		{
+			glfwSetWindowShouldClose(XGameCore.window, GL_TRUE);
+		}
+	}
 }

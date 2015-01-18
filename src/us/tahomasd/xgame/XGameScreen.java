@@ -77,6 +77,10 @@ public abstract class XGameScreen {
 				if (e.MouseDown == true)
 				{ // If the mouse isn't already up on 'e'
 					e.OnMouseUp();
+					if (e instanceof UIButton)
+					{
+						OnButtonPressed((UIButton) e);
+					}
 				}
 				e.MouseDown = false;
 			}
