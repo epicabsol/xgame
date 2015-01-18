@@ -50,7 +50,12 @@ public class UIButton extends UIElement {
 		}
 		if (Focused)
 		{
-			this.bounds().render(new Color(255, 102, 0, 255), 100);		
+			Rectangle r = this.bounds();
+			r.setX(r.getX() - 4);
+			r.setY(r.getY() - 4);
+			r.setWidth(r.getWidth() + 8);
+			r.setHeight(r.getHeight() + 8);
+			r.render(new Color(255, 102, 0, 255), 100);		
 		}
 	}
 }

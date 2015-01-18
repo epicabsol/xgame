@@ -67,7 +67,8 @@ public class Rectangle {
 		// Position everything correctly
 				GL11.glMatrixMode(GL11.GL_MODELVIEW);
 				GL11.glLoadIdentity();
-				GL11.glTranslated(getX(), getY(), Z);
+				GL11.glTranslated(getX() * XGameCore.Scale(), getY() * XGameCore.Scale(), Z);
+				GL11.glScaled(XGameCore.Scale(), XGameCore.Scale(), XGameCore.Scale());
 				//GL11.glRotated(rotation, rp.X, rp.Y, 0); No rotation here
 				
 				// Clear any bound texture
