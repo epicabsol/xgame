@@ -36,8 +36,8 @@ public abstract class UIElement {
 		Normal, Hover, Pressed
 	}
 	public State state = State.Normal;
-	public void OnMouseDown() { System.out.println("Mouse down!");}
-	public void OnMouseUp() { System.out.println("Mouse up!");}
-	public void OnMouseEnter() { System.out.println("Mouse enter!");}
-	public void OnMouseLeave() { System.out.println("Mouse leave!");}
+	public void OnMouseDown() { }
+	public void OnMouseUp() { }
+	public void OnMouseEnter() { }
+	public void OnMouseLeave() { }
 }
