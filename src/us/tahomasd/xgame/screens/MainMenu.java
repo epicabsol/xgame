@@ -4,8 +4,6 @@ import java.io.File;
 
 import us.tahomasd.xgame.*;
 
-import org.lwjgl.glfw.GLFW;
-
 public class MainMenu extends XGameScreen {
 	public static Texture titleTexture = null;
 	public UIImage title = null;
@@ -17,12 +15,7 @@ public class MainMenu extends XGameScreen {
 
 	@Override
 	public void OnKeyDown(int KeyCode) {
-		switch (KeyCode)
-		{
-			case GLFW.GLFW_KEY_SPACE:
-				System.out.println("Space key pressed!");
-				break;
-		}
+		
 	}
 
 	@Override

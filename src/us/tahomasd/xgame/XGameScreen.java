@@ -113,6 +113,12 @@ public abstract class XGameScreen {
 			case GLFW.GLFW_KEY_DOWN:
 				FocusElement(FocusedElement.Below);
 				break;
+			case GLFW.GLFW_KEY_SPACE:
+				if (FocusedElement instanceof UIButton)
+				{
+					OnButtonPressed((UIButton) FocusedElement);
+				}
+				break;
 			}
 		}		
 	}
