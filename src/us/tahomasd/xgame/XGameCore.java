@@ -2,8 +2,11 @@ package us.tahomasd.xgame;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.nio.DoubleBuffer;
+
 import javax.swing.JOptionPane;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 //import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.*;
@@ -13,10 +16,20 @@ import org.lwjgl.glfw.*;
 import us.tahomasd.xgame.screens.*;
 
 public class XGameCore {
-	public static int TileSize = 16;
+	public static int TileSize = 32;
 	public static int Scale()
 	{
 		return TileSize / 16;
+	}
+	public static Vector2d MousePos()
+	{
+		DoubleBuffer bX = BufferUtils.createDoubleBuffer(1); DoubleBuffer bY = BufferUtils.createDoubleBuffer(1);
+		GLFW.glfwGetCursorPos(XGameCore.window, bX, bY);
+		return new Vector2d(bX.get(), XGameMain.HEIGHT - bY.get());
+	}
+	public static void MousePos(double X, double Y)
+	{
+		GLFW.glfwSetCursorPos(window, X, XGameMain.HEIGHT - Y);
 	}
 	public static boolean EscapePressed = false;
 	public static boolean SpacePressed = false;
@@ -25,6 +38,7 @@ public class XGameCore {
 	public static boolean DownPressed = false;
 	public static boolean LeftPressed = false;
 	public static boolean RightPressed = false;
+	public static boolean DrawCursor = true;
 	public static XGameScreen CurrentScreen = null;
 	
 	// Screens in the game
@@ -43,6 +57,8 @@ public class XGameCore {
 		GL11.glEnable(GL_ALPHA_TEST);
 		GL11.glAlphaFunc(GL_GREATER, 0);
 		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		XGameResources.LoadResources();
 		
 		SetupViewport();
 		
@@ -72,8 +88,38 @@ public class XGameCore {
 	
 	public static void Update()
 	{
-		Input();
+		// Clip cursor to window
+		Vector2d c = MousePos();
+		boolean fix = false;
+		double x = c.X; double y = c.Y;
+		if (c.Y > XGameMain.HEIGHT)
+		{
+			fix = true;
+			y = XGameMain.HEIGHT;
+		}
+		if (c.Y < 0)
+		{
+			fix = true;
+			y = 0;
+		}
+		if (c.X < 0)
+		{
+			fix = true;
+			x = 0;
+		}
+		if (c.X > XGameMain.WIDTH)
+		{
+			fix = true;
+			x = XGameMain.WIDTH;
+		}
 		
+		if (fix)
+		{
+			MousePos(x, y);
+		}
+		
+		Input();
+		CurrentScreen.Update();
 	}
 	
 	public static void Input()
@@ -133,6 +179,12 @@ public class XGameCore {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 		SetupViewport();
 		CurrentScreen.Render();
+		if (DrawCursor)
+		{
+			Vector2d m = MousePos();
+			m.Y = m.Y - XGameResources.cursor.height() - 1;
+			XGameResources.cursor.render(m, 150);
+		}
 	}
 	
 	public static void msgBox(String infoMessage, String titleBar)

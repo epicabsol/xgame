@@ -1,5 +1,8 @@
 package us.tahomasd.xgame.screens;
 
+
+import us.tahomasd.xgame.*;
+
 public abstract class UIElement {
 	public double X;
 	public double Y;
@@ -7,8 +10,22 @@ public abstract class UIElement {
 	public int MouseX = 0;
 	public int MouseY = 0;
 	public boolean Focused = false;
+	public boolean MouseIn = false;
+	public boolean MouseDown = false;
+	public UIElement Above = this;
+	public UIElement Below = this;
+	public UIElement Left = this;
+	public UIElement Right = this;
 	public abstract double width();
 	public abstract double height();
+	public Vector2d size()
+	{
+		return new Vector2d(width(), height());
+	}
+	public Rectangle bounds()
+	{
+		return new Rectangle(X, Y, width(), height());
+	}
 	public void Update() { }
 	public void Render()
 	{
@@ -19,8 +36,8 @@ public abstract class UIElement {
 		Normal, Hover, Pressed
 	}
 	public State state = State.Normal;
-	public void OnMouseDown() { }
-	public void OnMouseUp() { }
-	public void OnMouseEnter() { }
-	public void OnMouseLeave() { }
+	public void OnMouseDown() { System.out.println("Mouse down!");}
+	public void OnMouseUp() { System.out.println("Mouse up!");}
+	public void OnMouseEnter() { System.out.println("Mouse enter!");}
+	public void OnMouseLeave() { System.out.println("Mouse leave!");}
 }
