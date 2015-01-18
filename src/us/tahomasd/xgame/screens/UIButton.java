@@ -24,13 +24,13 @@ public class UIButton extends UIElement {
 	@Override
 	public double width() {
 		// TODO Auto-generated method stub
-		return NormalTexture.width() * XGameCore.Scale();
+		return NormalTexture.width();
 	}
 
 	@Override
 	public double height() {
 		// TODO Auto-generated method stub
-		return NormalTexture.height() * XGameCore.Scale();
+		return NormalTexture.height();
 	}
 
 	@Override
@@ -48,6 +48,9 @@ public class UIButton extends UIElement {
 			PressedTexture.render(new Vector2d(this.X, this.Y), Z);
 			break;
 		}
+		if (Focused)
+		{
+			this.bounds().render(new Color(255, 102, 0, 255), 100);		
+		}
 	}
-
 }

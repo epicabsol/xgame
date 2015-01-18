@@ -96,6 +96,8 @@ public class XGameMain {
         // NOTE: We need to have this here before XGameCore.Load() so we have an OpenGL Context to create textures with (and stuff)
         GLContext.createFromCurrent();
         
+        glfwSetInputMode(XGameCore.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        
         // Load the game
         XGameCore.Load();
  
