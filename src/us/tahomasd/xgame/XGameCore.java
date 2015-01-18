@@ -25,11 +25,11 @@ public class XGameCore {
 	{
 		DoubleBuffer bX = BufferUtils.createDoubleBuffer(1); DoubleBuffer bY = BufferUtils.createDoubleBuffer(1);
 		GLFW.glfwGetCursorPos(XGameCore.window, bX, bY);
-		return new Vector2d(bX.get(), XGameMain.HEIGHT - bY.get());
+		return new Vector2d(bX.get() / Scale(), Math.ceil((XGameMain.HEIGHT - bY.get()) / Scale()));
 	}
 	public static void MousePos(double X, double Y)
 	{
-		GLFW.glfwSetCursorPos(window, X, XGameMain.HEIGHT - Y);
+		GLFW.glfwSetCursorPos(window, X * Scale(), (XGameMain.HEIGHT - Y * Scale()));
 	}
 	public static boolean EscapePressed = false;
 	public static boolean SpacePressed = false;
@@ -51,6 +51,7 @@ public class XGameCore {
 	
 	public static void Load()
 	{
+		MousePos(0, 0);
 		GL11.glEnable(GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glEnable(GL_BLEND);
@@ -92,12 +93,16 @@ public class XGameCore {
 		Vector2d c = MousePos();
 		boolean fix = false;
 		double x = c.X; double y = c.Y;
-		if (c.Y > XGameMain.HEIGHT)
+		if (XGameMain.RawHeight < 15)
+		{
+			System.out.println("BAD!!!");
+		}
+		if (c.Y > XGameMain.RawHeight * 16 )
 		{
 			fix = true;
-			y = XGameMain.HEIGHT;
+			y = XGameMain.RawHeight * 16 ;
 		}
-		if (c.Y < 0)
+		else if (c.Y < 0)
 		{
 			fix = true;
 			y = 0;
@@ -107,17 +112,17 @@ public class XGameCore {
 			fix = true;
 			x = 0;
 		}
-		if (c.X > XGameMain.WIDTH)
+		else if (c.X > XGameMain.RawWidth * 16)
 		{
 			fix = true;
-			x = XGameMain.WIDTH;
+			x = XGameMain.RawWidth * 16;
 		}
 		
 		if (fix)
 		{
 			MousePos(x, y);
 		}
-		
+
 		Input();
 		CurrentScreen.Update();
 	}
@@ -182,8 +187,9 @@ public class XGameCore {
 		if (DrawCursor)
 		{
 			Vector2d m = MousePos();
+			m = m.multiply(Scale());
 			m.Y = m.Y - XGameResources.cursor.height() - 1;
-			XGameResources.cursor.render(m, 150);
+			XGameResources.cursor.renderNoScale(m, 250);
 		}
 	}
 	

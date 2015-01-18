@@ -77,11 +77,19 @@ public class Texture {
 	
 	public void render(Vector2d pos, double Z)
 	{
-		render(pos, Z, new Vector2d(this.width(), this.height()), new Color(255, 255, 255), 0, new Vector2d(0, 0));
+		render(pos, Z, new Vector2d(this.width(), this.height()), new Color(255, 255, 255), 0, new Vector2d(0, 0), XGameCore.Scale());
 	}
 	
-	public void render(Vector2d pos, double Z, Vector2d size, Color color, double rotation, Vector2d rp)
+	public void renderNoScale(Vector2d pos, double Z)
 	{
+		render(pos, Z, new Vector2d(this.width(), this.height()), new Color(255, 255, 255), 0, new Vector2d(0, 0), 1);
+	}
+	
+	public void render(Vector2d pos, double Z, Vector2d size, Color color, double rotation, Vector2d rp, double scale)
+	{
+		pos = pos.multiply(scale);
+		size = size.multiply(scale);
+		rp = rp.multiply(scale);
 		// Position everything correctly
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();

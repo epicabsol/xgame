@@ -3,28 +3,60 @@ package us.tahomasd.xgame.screens;
 import java.io.File;
 
 import us.tahomasd.xgame.*;
+//import us.tahomasd.xgame.screens.*;
 
 public class MainMenu extends XGameScreen {
 	public static Texture titleTexture = null;
 	public UIImage title = null;
+	public UIButton startbutton = null;
+	public UIButton levelsbutton = null;
+	public UIButton creditsbutton = null;
+	public UIButton closebutton = null;
 	@Override
 	public void Render() {
 		super.Render();
-		// title.render(new Vector2d((XGameMain.WIDTH / 2) - (426 / 4 * XGameCore.Scale()), 150 * XGameCore.Scale()), 0, new Vector2d(426 / 2 * XGameCore.Scale(), 144 / 2 * XGameCore.Scale()), new Color(255, 255, 255, 255), 0.0, new Vector2d(0,0));
 	}
 
 	@Override
 	public void OnKeyDown(int KeyCode) {
-		
+		super.OnKeyDown(KeyCode);
 	}
 
 	@Override
 	public void Load() {
+		
+		// Start button
+		startbutton = new UIButton(XGameResources.start);
+		startbutton.X = (XGameMain.RawWidth * 16 / 2) - (startbutton.width() / 2);
+		startbutton.Y = 134;
+		this.UIElements.add(startbutton);
+		
+		// Levels button
+		levelsbutton = new UIButton(XGameResources.levels);
+		levelsbutton.X = (XGameMain.RawWidth * 8) - (levelsbutton.width() / 2);
+		levelsbutton.Y = 90;
+		this.UIElements.add(levelsbutton);
+		
+		// Credits button
+		creditsbutton = new UIButton(XGameResources.credits);
+		creditsbutton.X = (XGameMain.RawWidth * 8) - (creditsbutton.width() / 2);
+		creditsbutton.Y = 46;
+		this.UIElements.add(creditsbutton);
+		
+		// Close button
+		closebutton = new UIButton(XGameResources.close);
+		closebutton.X = (XGameMain.RawWidth * 8) - (closebutton.width() / 2);
+		closebutton.Y = 2;
+		this.UIElements.add(closebutton);
+		
+		// Title image
 		titleTexture = new Texture(new File("res/img/title.png").getAbsolutePath());
 		title = new UIImage(titleTexture);
-		title.X = (XGameMain.WIDTH / 2) - (426 / 4 * XGameCore.Scale());
-		title.Y = 150 * XGameCore.Scale();
+		title.X = (XGameMain.RawWidth * 16 / 2) - (titleTexture.width() / 2);
+		title.Y = 170;
+		title.Z = 160;
 		this.UIElements.add(title);
+		
 	}
 
 	@Override

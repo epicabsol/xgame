@@ -27,8 +27,10 @@ public class XGameMain {
     private GLFWErrorCallback errorCallback;
     private GLFWKeyCallback   keyCallback;
     
-    public static int WIDTH = 25 * XGameCore.TileSize;
-    public static int HEIGHT = 15 * XGameCore.TileSize;
+    public static int RawWidth = 25;
+    public static int WIDTH = RawWidth * XGameCore.TileSize;
+    public static int RawHeight = 15;
+    public static int HEIGHT = RawHeight * XGameCore.TileSize;
  
     public void run() { 
         try {
