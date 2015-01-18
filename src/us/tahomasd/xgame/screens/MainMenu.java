@@ -8,7 +8,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class MainMenu extends XGameScreen {
 	public static Texture titleTexture = null;
-	public UIButton title = null;
+	public UIImage title = null;
 	@Override
 	public void Render() {
 		super.Render();
@@ -28,7 +28,7 @@ public class MainMenu extends XGameScreen {
 	@Override
 	public void Load() {
 		titleTexture = new Texture(new File("res/img/title.png").getAbsolutePath());
-		title = new UIButton(titleTexture);
+		title = new UIImage(titleTexture);
 		title.X = (XGameMain.WIDTH / 2) - (426 / 4 * XGameCore.Scale());
 		title.Y = 150 * XGameCore.Scale();
 		this.UIElements.add(title);
