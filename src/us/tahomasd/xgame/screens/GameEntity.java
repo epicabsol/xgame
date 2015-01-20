@@ -14,6 +14,7 @@ public class GameEntity {
 	public double FrameD = 0.0;
 	public double AnimationSpeed = 1.0;
 	public boolean UseGravity = true;
+	public boolean OnGround = false;
 	private GameEntity()
 	{
 		
@@ -42,9 +43,9 @@ public class GameEntity {
 	{
 		StepSprite(AnimationSpeed);
 	}
-	public void Render()
+	public void Render(Vector2d offset)
 	{
-		CurrentFrame().render(position, Z);
+		CurrentFrame().render(position.divide(XGameCore.Scale()).subtract(offset), Z);
 	}
 	public void Update()
 	{

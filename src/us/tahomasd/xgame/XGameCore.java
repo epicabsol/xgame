@@ -16,7 +16,7 @@ import org.lwjgl.glfw.*;
 import us.tahomasd.xgame.screens.*;
 
 public class XGameCore {
-	public static int TileSize = 32;
+	public static int TileSize = 16;
 	public static int Scale()
 	{
 		return TileSize / 16;
@@ -194,7 +194,14 @@ public class XGameCore {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 		SetupViewport();
-		CurrentScreen.Render();
+		if (CurrentScreen != null)
+		{
+			CurrentScreen.Render();
+		}
+		else
+		{
+			System.out.println("Null CurrentScreen!!! BAD!!!!!");
+		}
 		if (DrawCursor)
 		{
 			Vector2d m = MousePos();

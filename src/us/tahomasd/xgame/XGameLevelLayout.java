@@ -25,17 +25,27 @@ public class XGameLevelLayout {
 		// TODO: Load the level!
 		// For now, just initialize it for testing purposes.
 		Collision = new CollisionLayer[100][25];
+		Tiles = new Tile[100][25];
 		for (int x = 0; x < 100; x++)
 		{
 			for (int y = 0; y < 25; y++)
 			{
-				if (y > 1)
+				if (y > 0)
 				{
-					Collision[x][y] = CollisionLayer.Behind;
+					if (x > y)
+					{
+						Collision[x][y] = CollisionLayer.Solid;
+						Tiles[x][y] = Tile.Stone;
+					}
+					else
+					{
+						Collision[x][y] = CollisionLayer.Behind;
+					} 
 				}
 				else
 				{
 					Collision[x][y] = CollisionLayer.Solid;
+					Tiles[x][y] = Tile.Stone;
 				}
 			}
 		}

@@ -12,6 +12,8 @@ public class XGameResources {
 	public static Texture playertest = null;
 	
 	public static ArrayList<XGameLevelLayout> Levels = new ArrayList<XGameLevelLayout>();
+	
+	public static Hashtable<String, Texture> TileTextures = new Hashtable<String, Texture>();
 	public static void LoadResources()
 	{
 		// Load UI textures
@@ -21,6 +23,27 @@ public class XGameResources {
 		credits = new Texture(new File("res/img/button_credits.png").getAbsolutePath());
 		close = new Texture(new File("res/img/button_close.png").getAbsolutePath());
 		playertest = new Texture(new File("res/img/playertest.png").getAbsolutePath());
+		
+		// Load tile textures!
+		File TilesFolder = new File("res/img/tiles");
+		File[] tiles = TilesFolder.listFiles();
+		int i = 0;
+		if (tiles != null)
+		{
+			for (File f : tiles)
+			{
+				try
+				{
+					TileTextures.put(f.getName(), new Texture(f.getAbsolutePath()));
+					i++;
+				}
+				catch (Exception ex)
+				{
+					System.out.println("Could not load texture " + f.getName());
+				}
+			}
+		}
+		System.out.println("Loaded " + i + " tiles.");
 		
 		// Load levels!
 		File LevelsFolder = new File("res/levels");
