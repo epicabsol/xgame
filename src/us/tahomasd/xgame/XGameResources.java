@@ -1,6 +1,7 @@
 package us.tahomasd.xgame;
 
 import java.io.File;
+import java.util.*;
 
 public class XGameResources {
 	public static Texture cursor = null;
@@ -8,12 +9,29 @@ public class XGameResources {
 	public static Texture levels = null;
 	public static Texture credits = null;
 	public static Texture close = null;
+	public static Texture playertest = null;
+	
+	public static ArrayList<XGameLevelLayout> Levels = new ArrayList<XGameLevelLayout>();
 	public static void LoadResources()
 	{
+		// Load UI textures
 		cursor = new Texture(new File("res/img/cursor.png").getAbsolutePath());
 		start = new Texture(new File("res/img/button_start.png").getAbsolutePath());
 		levels = new Texture(new File("res/img/button_levels.png").getAbsolutePath());
 		credits = new Texture(new File("res/img/button_credits.png").getAbsolutePath());
 		close = new Texture(new File("res/img/button_close.png").getAbsolutePath());
+		playertest = new Texture(new File("res/img/playertest.png").getAbsolutePath());
+		
+		// Load levels!
+		File LevelsFolder = new File("res/levels");
+		
+		File[] levels = LevelsFolder.listFiles();
+		if (levels != null)
+		{
+			for (File f : levels)
+			{
+				Levels.add(new XGameLevelLayout(f.getAbsolutePath()));
+			}
+		}
 	}
 }

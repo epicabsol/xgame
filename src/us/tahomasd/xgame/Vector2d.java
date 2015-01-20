@@ -51,4 +51,14 @@ public class Vector2d {
 	{
 		return new Vector2d(X / scalar, Y / scalar);
 	}
+	
+	public Vector2d lerp(Vector2d p2, double factor)
+	{
+		return new Vector2d((1 - factor) * p2.X + factor * this.X,(1 - factor) * p2.Y + factor * this.Y);
+	}
+	
+	public Vector2d clone()
+	{
+		return new Vector2d(this.X, this.Y);
+	}
 }

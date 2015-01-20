@@ -40,10 +40,22 @@ public class XGameCore {
 	public static boolean RightPressed = false;
 	public static boolean DrawCursor = true;
 	public static XGameScreen CurrentScreen = null;
+	public static void SetScreen(XGameScreen s)
+	{
+		if (CurrentScreen != null)
+		{
+			CurrentScreen.OnClosed();
+		}
+		CurrentScreen = s;
+		if (CurrentScreen != null)
+		{
+			CurrentScreen.OnOpened();
+		}
+	}
 	
 	// Screens in the game
 	public static MainMenu MainMenuScreen = null;
-	public static XGameScreen GameScreen = null;
+	public static GameScreen GameScreen = null;
 	public static XGameScreen ResultsScreen = null;
 	 
     // The window handle
@@ -65,11 +77,10 @@ public class XGameCore {
 		
 		MainMenuScreen = new MainMenu();
 		MainMenuScreen.Load();
+		GameScreen = new GameScreen();
+		GameScreen.Load();
 		
-		//GameScreen.Load();
-		
-		//ResultsScreen.Load(); These are not initialized yet!
-		CurrentScreen = MainMenuScreen;
+		SetScreen(MainMenuScreen);
 	}
 	
 	public static void SetupViewport()
@@ -83,7 +94,7 @@ public class XGameCore {
 	public static void Dispose()
 	{
 		MainMenuScreen.Dispose();
-		//GameScreen.Dispose();
+		GameScreen.Dispose();
 		//ResultsScreen.Dispose(); // These are not initialized yet!
 	}
 	

@@ -131,4 +131,6 @@ public abstract class XGameScreen {
 	public abstract void Dispose();
 	public ArrayList<UIElement> UIElements = new ArrayList<UIElement>();
 	public void OnButtonPressed(UIButton b) { }
+	public void OnOpened() { }
+	public void OnClosed() { }
 }

@@ -73,13 +73,14 @@ public class MainMenu extends XGameScreen {
 	{
 		if (b.equals(startbutton))
 		{
-			
+			GameScreen.CurrentLevel = XGameResources.Levels.get(0);
+			XGameCore.SetScreen(XGameCore.GameScreen);
 		}
 		else if (b.equals(levelsbutton))
 		{
 			
 		}
-		else if (b.equals(levelsbutton))
+		else if (b.equals(creditsbutton))
 		{
 			
 		}

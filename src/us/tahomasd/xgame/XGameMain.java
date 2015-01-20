@@ -114,7 +114,15 @@ public class XGameMain {
  
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
+        long lastnanos = System.currentTimeMillis();
         while ( glfwWindowShouldClose(XGameCore.window) == GL_FALSE ) {
+        	//System.out.println("Current: " + System.currentTimeMillis() + " Last: " + lastnanos + " Difference: " + (System.nanoTime() - lastnanos));
+        	if (System.currentTimeMillis() - lastnanos < 20)
+        	{
+        		//System.out.println("Skipped because over max FPS");
+        		continue;
+        	}
+        	
         	XGameCore.Update();
         	
             XGameCore.Render();
@@ -124,6 +132,7 @@ public class XGameMain {
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents(); // NOTE: Keyboard polling doens't seem to be working yet - Ignore next note. -> NOTE: Let's try to implement input by polling the keyboard per frame, not by calbacks. This has always worked better for me.
+            lastnanos = System.currentTimeMillis();
         }
     }
     
