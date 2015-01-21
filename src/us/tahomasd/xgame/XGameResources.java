@@ -32,6 +32,10 @@ public class XGameResources {
 		{
 			for (File f : tiles)
 			{
+				if (f.getName().equals("Thumbs.db"))
+				{
+					continue;
+				}
 				try
 				{
 					TileTextures.put(f.getName(), new Texture(f.getAbsolutePath()));
