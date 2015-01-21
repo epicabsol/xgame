@@ -12,7 +12,7 @@ Audio - unknown (Ben S.)
 
 Level Importing - unknown (Zane)
 
-Player/Enemy - unknown (Max)
+Player/Enemy - Someguy56 (Max)
 
 Display/Graphics/"Everything" - epicabsol (Ben G.)
 
