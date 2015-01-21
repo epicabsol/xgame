@@ -40,7 +40,7 @@ Everything we still need to do:
 | ^      | warp exit from pipe         |
 | p      | pipe bottom (lower case)    |
 | %      | breakable block             |
-| |      | flag                        |
+| &#124;      | flag                        |
 | *      | castle                      |
 | W      | water                       |
 | L      | lava                        |
