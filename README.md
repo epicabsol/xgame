@@ -26,19 +26,21 @@ Everything we still need to do:
 - Make a GameScreen that plays a level
 
 #Level Tile Key
-C   coin block
-M   mushroom block
-1   1-up block
-B   Empty Block
-0   coin
-X   brown tile 
-G   ground
-P   pipe tops (upper case) - no entry
-V   warp entrance to pipe
-^   warp exit from pipe
-p   pipe bottom (lower case)
-%   breakable block
-|   flag
-*   castle
-W   water
-L   lava
+| symbol | tile                        |
+| ------ | --------------------------- |
+| C      | coin block                  |
+| M      | mushroom block              |
+| 1      | 1-up block                  |
+| B      | Empty Block                 |
+| 0      | coin                        |
+| X      | brown tile                  | 
+| G      | ground                      |
+| P      | pipe tops - no entry        |
+| V      | warp entrance to pipe       |
+| ^      | warp exit from pipe         |
+| p      | pipe bottom (lower case)    |
+| %      | breakable block             |
+| |      | flag                        |
+| *      | castle                      |
+| W      | water                       |
+| L      | lava                        |
