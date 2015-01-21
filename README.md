@@ -44,3 +44,5 @@ Everything we still need to do:
 | *      | castle                      |
 | W      | water                       |
 | L      | lava                        |
+| @      | cloud                       |
+| $      | bush                        |
