@@ -12,7 +12,7 @@ public class XGameLevelLayout {
 	 */
 	public enum Tile // TODO: More tile types!
 	{
-		Empty, Stone, Grass, Dirt
+		Empty, Stone, Grass, Dirt, Cloud
 	}
 	
 	public enum CollisionLayer
