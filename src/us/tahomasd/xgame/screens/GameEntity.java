@@ -2,6 +2,7 @@ package us.tahomasd.xgame.screens;
 
 import us.tahomasd.xgame.*;
 import java.util.ArrayList;
+import org.jbox2d.*;
 /* GameEntity - an entity for a level that is affected by physics.
  * 
  */

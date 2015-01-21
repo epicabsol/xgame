@@ -105,6 +105,11 @@ public class GameScreen extends XGameScreen {
 	
 	public void PhysicsTick()
 	{
+		
+	}
+	
+	public void OldPhysicsTick()
+	{
 		for (GameEntity e : Entities)
 		{
 			Vector2d newposX = e.position.clone();
