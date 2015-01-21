@@ -29,7 +29,7 @@ package org.jbox2d.profile;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+//import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jbox2d.common.MathUtils;
 
 /**
@@ -52,16 +52,16 @@ public abstract class BasicPerformanceTest {
 
   private ResultFormat format = ResultFormat.MICROSECONDS;
   private final int numTests, iters, frames;
-  protected final DescriptiveStatistics[] stats;
+  //protected final DescriptiveStatistics[] stats;
   private ArrayList<Integer> testOrder = new ArrayList<Integer>();
 
   public BasicPerformanceTest(int numTests, int iters, int frames) {
     this.numTests = numTests;
     this.iters = iters;
     this.frames = frames;
-    stats = new DescriptiveStatistics[numTests];
+    //stats = new DescriptiveStatistics[numTests];
     for (int i = 0; i < numTests; i++) {
-      stats[i] = new DescriptiveStatistics(iters * frames + 1);
+      //stats[i] = new DescriptiveStatistics(iters * frames + 1);
       testOrder.add(i);
     }
   }
@@ -104,7 +104,7 @@ public abstract class BasicPerformanceTest {
           prev = System.nanoTime();
           step(runningTest);
           after = System.nanoTime();
-          stats[runningTest].addValue((after - prev));
+          //stats[runningTest].addValue((after - prev));
         }
       }
     }
@@ -114,11 +114,11 @@ public abstract class BasicPerformanceTest {
   public void printResults() {
     printf("%-20s%20s%20s%20s\n", "Test Name", format.name + " Avg", "StdDev", "95% Interval");
     for (int i = 0; i < numTests; i++) {
-      double mean = stats[i].getMean() / format.divisor;
-      double stddev = stats[i].getStandardDeviation() / format.divisor;
-      double diff = 1.96 * stddev / MathUtils.sqrt(stats[i].getN());
-      printf("%-20s%20.3f%20.3f  (%7.3f,%7.3f)\n", getTestName(i), mean, stddev, mean - diff, mean
-          + diff);
+      //double mean = stats[i].getMean() / format.divisor;
+      //double stddev = stats[i].getStandardDeviation() / format.divisor;
+      //double diff = 1.96 * stddev / MathUtils.sqrt(stats[i].getN());
+      //printf("%-20s%20.3f%20.3f  (%7.3f,%7.3f)\n", getTestName(i), mean, stddev, mean - diff, mean
+      //    + diff);
     }
   }
 
