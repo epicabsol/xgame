@@ -137,6 +137,7 @@ public class GameScreen extends XGameScreen {
 		int Y = Math.max(0, ((int) Player.position.Y + (Player.SpriteFrames.get(0).height() / 2 * XGameCore.Scale()) - (XGameMain.HEIGHT / 2)) / XGameCore.Scale());
 		Camera.X = X;
 		Camera.Y = Y;
+		Camera = Camera.multiply(XGameCore.Scale());
 	}
 	
 	public void PhysicsTick()

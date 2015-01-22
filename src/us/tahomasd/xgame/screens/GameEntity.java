@@ -69,7 +69,7 @@ public class GameEntity {
 	
 	public void Render(Vector2d offset)
 	{
-		CurrentFrame().render(position.divide(XGameCore.Scale()).subtract(offset), Z);
+		CurrentFrame().render(position.subtract(offset), Z);
 	}
 	
 	public void Update()
