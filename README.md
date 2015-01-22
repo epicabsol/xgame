@@ -2,7 +2,7 @@
 A mario-like game.
 
 #Positions
-* Supervisor - sudocrystal (Mrs Hess)
+* Supervisor - sudocrystal (Ms. Hess)
 * Sprites/Images - unknown (Jacob/Gabby)
     * Make a 16x16 sprite for each tile
 * Level Design - negative4degrees (Abigail)
