@@ -24,11 +24,11 @@ public class XGameLevelLayout {
 	{
 		// TODO: Load the level!
 		// For now, just initialize it for testing purposes.
-		Collision = new CollisionLayer[100][25];
-		Tiles = new Tile[100][25];
-		for (int x = 0; x < 100; x++)
+		Collision = new CollisionLayer[25][15];
+		Tiles = new Tile[25][15];
+		for (int x = 0; x < 25; x++)
 		{
-			for (int y = 0; y < 25; y++)
+			for (int y = 0; y < 15; y++)
 			{
 				if (y > 0)
 				{
