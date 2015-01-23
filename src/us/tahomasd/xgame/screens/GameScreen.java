@@ -6,9 +6,14 @@ import us.tahomasd.xgame.XGameLevelLayout.Tile;
 
 import java.util.ArrayList;
 
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.*;
 import org.lwjgl.glfw.GLFW;
 
 public class GameScreen extends XGameScreen {
+	public static World CollisionWorld;
+	public static CollisionCallback callback;
 	public static XGameLevelLayout CurrentLevel = null;
 	
 	public Tile[][] Tiles;
@@ -19,13 +24,12 @@ public class GameScreen extends XGameScreen {
 	public GameEntity Player;
 	public double PlayerXSpeed = 0;
 	
-	public Vector2d Gravity = new Vector2d(0, -0.8);
+	public Vector2d Gravity = new Vector2d(0, -5.00);
 	
 	@Override
 	public void Load() {
-		Player = GameEntity.Create();
-		Player.SpriteFrames.add(XGameResources.playertest);
-		Entities.add(Player);
+		//Player = GameEntity.Create(new Vector2d(16, 32));
+		
 	}
 
 	@Override
@@ -40,7 +44,39 @@ public class GameScreen extends XGameScreen {
 		// Load the level in 'CurrentLevel'
 		this.Tiles = CurrentLevel.Tiles.clone();
 		this.Collision = CurrentLevel.Collision.clone();
+		
+		Entities.clear();
+		
+		CollisionWorld = new World(new Vec2((float) Gravity.X, (float) Gravity.Y));
+		callback = new CollisionCallback();
+		CollisionWorld.setContactListener(callback);
+		
+		Player = GameEntity.CreateWithPhysics(new Vector2d(16, 32), 10.0f, false);
 		Player.position.Y = 250;
+		Player.SpriteFrames.add(XGameResources.playertest);
+		Entities.add(Player);
+		Player.PushTransform();
+		
+		for (int x = 0; x < Tiles.length; x++)
+		{
+			for (int y = 0; y < Tiles[0].length; y++)
+			{
+				if (Collision[x][y] == CollisionLayer.Solid)
+				{
+					// Set up the shape
+					PolygonShape TileShape = new PolygonShape();
+					TileShape.setAsBox((float) 0.5, (float) 0.5);
+					BodyDef tile = new BodyDef();
+					tile.setPosition(new Vec2(x, y));
+					// Set up the body and tag it as ground
+					Body TileBody = CollisionWorld.createBody(tile);
+					TileBody.setUserData("G");
+					// Fix the shape to the body
+					TileBody.createFixture(TileShape, (float) 0.0);
+					TileBody.getFixtureList().setRestitution(0.00f);
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -93,7 +129,7 @@ public class GameScreen extends XGameScreen {
 		{
 			PlayerXSpeed *= 0.75;
 		}
-		Player.speed.X = PlayerXSpeed;
+		Player.speed.X = PlayerXSpeed * 10;
 		PhysicsTick();
 		
 		// Make the camera follow the player, in a restricted manner.
@@ -101,11 +137,46 @@ public class GameScreen extends XGameScreen {
 		int Y = Math.max(0, ((int) Player.position.Y + (Player.SpriteFrames.get(0).height() / 2 * XGameCore.Scale()) - (XGameMain.HEIGHT / 2)) / XGameCore.Scale());
 		Camera.X = X;
 		Camera.Y = Y;
+		Camera = Camera.multiply(XGameCore.Scale());
 	}
 	
 	public void PhysicsTick()
 	{
-		
+		for (GameEntity e : Entities)
+		{
+			e.PushTransform();
+		}
+		CollisionWorld.step(0.1f, 10, 5);
+		for (GameEntity e : Entities)
+		{
+			e.PullTransform();
+		}
+	}
+	
+	public void OnCollisionStarted(Body b1, Body b2)
+	{
+		System.out.println("Collision!");
+		if (b1.equals(Player.Body))
+		{
+			if (( (String) b2.getUserData()).equals("G"))
+			{
+				Player.GroundTouchCount += 1;
+			}
+			
+		}
+	}
+	
+	public void OnCollisionEnded(Body b1, Body b2)
+	{
+		System.out.println("Collision stopped!");
+		if (b1.equals(Player.Body))
+		{
+			if (( (String) b2.getUserData()).equals("G"))
+			{
+				Player.GroundTouchCount -= 1;
+			}
+			
+		}
 	}
 	
 	public void OldPhysicsTick()
@@ -116,8 +187,6 @@ public class GameScreen extends XGameScreen {
 			Vector2d newposY = e.position.clone();
 			// Gravity
 			e.speed = e.speed.add(new Vector2d(Gravity.X, Gravity.Y));
-			
-			e.OnGround = false;
 			
 			newposX = newposX.add(new Vector2d(e.speed.X, 0));
 			
@@ -175,7 +244,6 @@ public class GameScreen extends XGameScreen {
 						factor -= (1.0 / 10); // Replace 10 with however many steps should be tested.
 					}
 				}
-				e.OnGround = true; // NOTE: Don't set this if we hit an entity, only a tile;
 				//System.out.println("factor: " + factor);
 			}
 			e.position.Y = newposY.Y;
@@ -226,9 +294,10 @@ public class GameScreen extends XGameScreen {
 		{
 		case GLFW.GLFW_KEY_UP:
 			//Jump!
-			if (Player.OnGround)
+			if (Player.OnGround())
 			{
-				Player.speed.Y = 10;
+				Player.Body.applyForceToCenter(new Vec2(0, 10));
+				Player.GroundTouchCount -= 1;
 			}
 			break;
 		case GLFW.GLFW_KEY_SPACE:
