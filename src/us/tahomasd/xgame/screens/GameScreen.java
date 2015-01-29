@@ -95,12 +95,16 @@ public class GameScreen extends XGameScreen {
 					continue;
 				}
 				Texture t = null;
+				
+				/* TODO: Use once we have more tile textures. For now, just draw solid things as a box.
 				switch (Tiles[x][y])
 				{
-				case Stone:
+				case Ground:
 					t = XGameResources.TileTextures.get("crate1.png");
 					break;
-				}
+				}  */
+				
+				t = XGameResources.TileTextures.get("crate1.png");
 				
 				if (t != null)
 				{

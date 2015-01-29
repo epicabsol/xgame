@@ -57,6 +57,8 @@ public class XGameResources {
 		{
 			for (File f : levels)
 			{
+				if (f.getName().equals(".DS_Store"))
+					continue;
 				Levels.add(new XGameLevelLayout(f.getAbsolutePath()));
 			}
 		}
