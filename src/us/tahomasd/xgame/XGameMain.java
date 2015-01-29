@@ -20,6 +20,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import us.tahomasd.xgame.XGameCore;
+import us.tahomasd.xgame.Audio;
 
 @SuppressWarnings("unused")
 public class XGameMain {
@@ -44,6 +45,7 @@ public class XGameMain {
             // Terminate GLFW and release the GLFW error callback
             glfwTerminate();
             errorCallback.release();
+            //Audio.Dispose();
         }
     }
  
@@ -99,6 +101,8 @@ public class XGameMain {
         GLContext.createFromCurrent();
         
         glfwSetInputMode(XGameCore.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        
+        //Audio.MakeInitialized();
         
         // Load the game
         XGameCore.Load();
