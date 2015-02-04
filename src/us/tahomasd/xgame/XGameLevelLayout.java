@@ -48,12 +48,13 @@ public class XGameLevelLayout {
 			String s = "";
 			Collision = new CollisionLayer[width][height];
 			Tiles = new Tile[width][height];
-			for (int y = height - 1; y > 0; y--)
+			for (int y = height - 1; y >= 0; y--)
 			{
 				s = sc.nextLine();
 				System.out.println(s);
 				for (int x = 0; x < s.length(); x++)
 				{
+					System.out.println(x + ", " + y);
 					switch(s.charAt(x)){
 						case '@': Tiles[x][y] = Tile.Cloud;
 						Collision[x][y] = CollisionLayer.Behind;

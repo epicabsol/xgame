@@ -52,7 +52,7 @@ public class GameScreen extends XGameScreen {
 		CollisionWorld.setContactListener(callback);
 		
 		Player = GameEntity.CreateWithPhysics(new Vector2d(16, 32), 10.0f, false);
-		Player.position.Y = 250;
+		Player.position.Y = 8;
 		Player.SpriteFrames.add(XGameResources.playertest);
 		Entities.add(Player);
 		Player.PushTransform();
@@ -63,6 +63,7 @@ public class GameScreen extends XGameScreen {
 			{
 				if (Collision[x][y] == CollisionLayer.Solid)
 				{
+					System.out.println("Solid object at " + x + ", " + y);
 					// Set up the shape
 					PolygonShape TileShape = new PolygonShape();
 					TileShape.setAsBox((float) 0.5, (float) 0.5);
@@ -96,15 +97,15 @@ public class GameScreen extends XGameScreen {
 				}
 				Texture t = null;
 				
-				/* TODO: Use once we have more tile textures. For now, just draw solid things as a box.
+				// TODO: Use once we have more tile textures. For now, just draw solid things as a box.
 				switch (Tiles[x][y])
 				{
 				case Ground:
 					t = XGameResources.TileTextures.get("crate1.png");
 					break;
-				}  */
+				}  
 				
-				t = XGameResources.TileTextures.get("crate1.png");
+				//t = XGameResources.TileTextures.get("crate1.png");
 				
 				if (t != null)
 				{
