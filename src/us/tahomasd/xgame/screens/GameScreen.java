@@ -52,7 +52,8 @@ public class GameScreen extends XGameScreen {
 		CollisionWorld.setContactListener(callback);
 		
 		Player = GameEntity.CreateWithPhysics(new Vector2d(16, 32), 10.0f, false);
-		Player.position.Y = 8;
+		Player.position.Y = 40;
+		Player.position.X = 50;
 		Player.SpriteFrames.add(XGameResources.playertest);
 		Entities.add(Player);
 		Player.PushTransform();

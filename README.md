@@ -39,3 +39,4 @@ A mario-like game.
 | L      | lava                        |
 | @      | cloud                       |
 | $      | bush                        |
+| .      | empty                       |
